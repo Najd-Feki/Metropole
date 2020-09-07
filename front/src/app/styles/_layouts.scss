@@ -1,0 +1,74 @@
+.navbar {
+  &.fixed-top {
+    + .page-body-wrapper {
+      padding-top: $navbar-height;
+    }
+  }
+}
+
+.sidebar-mini {
+  @media (min-width: 992px) {
+    .navbar {
+      .navbar-brand-wrapper {
+        width: $sidebar-width-mini;
+      }
+      .navbar-menu-wrapper {
+        width: calc(100% - #{$sidebar-width-mini});
+      }
+    }
+    .sidebar {
+      width: $sidebar-width-mini;
+
+      .nav {
+        .nav-item {
+          .nav-link {
+            display: block;
+            text-align: center;
+            padding: 0.8em 2.5em;
+
+            .menu-title {
+              display: block;
+            }
+            i {
+              &:last-child {
+                display: none;
+              }
+            }
+            &[data-toggle="collapse"] {
+              .menu-title {
+                  &:after {
+                      content: "\F142";
+                      font: normal normal normal 24px/1 "Material Design Icons";
+                      position: absolute;
+                      right: 10px;
+                      font-size: 0.7rem;
+                  }
+              }
+            }
+          }
+          &.nav-category {
+            display: none;
+          }
+        }
+        &.sub-menu {
+          padding: 0 .5rem;
+          .nav-item {
+            .nav-link {
+              padding: .5rem 0;
+            }
+          }
+        }
+      }
+    }
+
+    .content-wrapper,
+    .footer {
+      margin-left: $sidebar-width-mini;
+      width: calc(100% - #{$sidebar-width-mini});
+      @at-root #{selector-append(".rtl", &)} {
+        margin-left: 0;
+        margin-right: $sidebar-width-mini;
+      }
+    }
+  }
+}
