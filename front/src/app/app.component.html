@@ -1,0 +1,152 @@
+<nav class="navbar navbar-primary col-lg-20 col-20 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper">
+        <a class="navbar-brand brand-logo">{{ name }}
+            <i class="fa fa-hotel"></i>
+        </a>
+        <a class="navbar-brand brand-logo-mini">
+            <i class="fa fa-hotel"></i>
+        </a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center">
+        <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize" (click)="openSidebar = !openSidebar">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="nav-profile">
+            <span>Hi,{{username}} </span>
+        </div>
+         <form class="form-inline mt-2 mt-md-0 d-none d-lg-block ml-lg-auto">
+            <input class="form-control search" type="text" placeholder="Search">
+        </form> 
+        <ul class="navbar-nav">
+             <!-- <li class="nav-item dropdown" [ngClass]="{'show': openNotifications}">
+                <a class="nav-link count-indicator" data-toggle="dropdown" (click)="openNotifications = !openNotifications">
+                    <i class="mdi mdi-comment-outline"></i>
+                    <span class="count bg-danger">4</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown mail-notification" [ngClass]="{'show': openNotifications}">
+                    <a class="dropdown-item" href="#">
+                        <div class="sender-img">
+                            <span class="badge badge-success">&nbsp;</span>
+                        </div>
+                        <div class="sender">
+                            <p class="Sende-name">John Doe</p>
+                            <p class="Sender-message">Hey, We have a meeting planned at the end of the day.</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="sender-img">
+                            <span class="badge badge-success">&nbsp;</span>
+                        </div>
+                        <div class="sender">
+                            <p class="Sende-name">Leanne Jones</p>
+                            <p class="Sender-message">Can we schedule a call this afternoon?</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="sender-img">
+                            <span class="badge badge-primary">&nbsp;</span>
+                        </div>
+                        <div class="sender">
+                            <p class="Sende-name">Stella</p>
+                            <p class="Sender-message">Great presentation the other day. Keep up the good work!</p>
+                        </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <div class="sender-img">
+                            <span class="badge badge-warning">&nbsp;</span>
+                        </div>
+                        <div class="sender">
+                            <p class="Sende-name">James Brown</p>
+                            <p class="Sender-message">Need the updates of the project at the end of the week.</p>
+                        </div>
+                    </a>
+                    <a href="#" class="dropdown-item view-all">View all</a>
+                </div>
+            </li>  -->
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas" (click)="openSidebar = !openSidebar">
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+</nav>
+
+<div class="container-fluid page-body-wrapper">
+    <div class="row row-offcanvas row-offcanvas-right" [ngClass]="{'active': openSidebar}">
+        <nav class="sidebar sidebar-offcanvas">
+            <ul class="nav">
+                <li class="nav-item nav-category">
+                    <span class="nav-link">Menu</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['dashboard']" (click)="openSidebar = false">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['bookings']" (click)="openSidebar = false">
+                        <i class="fa fa-calendar"></i>
+                        <span class="menu-title">Booking</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['guests']" (click)="openSidebar = false">
+                        <i class="fa fa-user-circle-o"></i>
+                        <span class="menu-title">Guest</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['rooms']" (click)="openSidebar = false">
+                        <i class="fa fa-suitcase"></i>
+                        <span class="menu-title">Rooms</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['payments']" (click)="openSidebar = false">
+                        <i class="fa fa-money"></i>
+                        <span class="menu-title">Payments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout($event)">
+                        <i class="fa fa-power-off"></i>
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link [collapsed]" data-toggle="collapse" href="#layoutsSubmenu" aria-expanded="true" aria-controls="collapseExample">
+                        <i class="mdi mdi-settings"></i>
+                        <span class="menu-title">Admin</span>
+                        <i class="mdi mdi-chevron-down"></i>
+                    </a>
+                    <div class="collapse show">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="['Facilities']">Facilities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [routerLink]="['Room rates']">Room rates</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['payments']" (click)="openSidebar = false">
+                        <i class="mdi mdi-credit-card"></i>
+                        <span class="menu-title">Payments</span>
+                    </a>
+                </li> -->
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid clearfix">
+                <span class="float-right">
+                    <a href="#">{{ name }}</a>
+                </span>
+            </div>
+        </footer>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<h1 class="page-title">Booking List</h1>
+<hr>
+<div class="row grid-margin">
+    <div class="col">
+        <form>
+            <input #search (keyup)="0" class="form-control" type="text" placeholder="Search">
+        </form>
+    </div>
+    <div class="col">
+    	<div class="btn-group float-right">
+    		<a class="btn btn-success" [routerLink]="['create']">
+                <i class="fa fa-plus-circle"></i> New Booking
+            </a>
+    	</div>
+    </div>
+</div>
+<div class="row grid-margin">
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Bookings</h2>
+                <table class="table table-hover table-responsive-sm">
+                    <thead class="thead-light">
+                        <tr class="">
+                            <th>Details</th>
+                            <th>Guest</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Confirmed</th>
+                            <th>Employee's name</th>
+                            <th>Room</th>
+                            <th width="1%">#</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="bookings$.isLoading == true">
+                        <tr>
+                            <th colspan="6" class="text-center">
+                                <loading-spinner></loading-spinner>
+                            </th>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="bookings$.data.length > 0 && bookings$.isLoading == false">
+                        <tr *ngFor="let booking of bookings$.data | searchFilter: search.value">
+                        
+                            <td scope="row">
+                                <a [routerLink]="['view', booking.resNr]" title="View Booking Details">
+                                    <i class="fa fa-file-text-o "></i>
+                                </a>
+                            </td>
+                            <td>
+                                
+                                <a [routerLink]="['/guests/view/byname/', booking.fullname]" title="View Guest Details" class="text-uppercase" >
+                                  {{ booking.fullname}}  
+                                </a> 
+                            </td>
+                            <td>
+                                {{ booking.startDate | date: 'dd/MM/yyyy' }}<br>
+                                <small>{{ booking.startDate | date: 'mediumTime' }}</small>
+                            </td>
+                            <td>
+                                {{ booking.endDate | date: 'dd/MM/yyyy' }}<br>
+                                <small>{{ booking.endDate | date: 'mediumTime' }}</small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge capitalized-text" [ngClass]="{'badge-danger': (booking.confirmed == false), 'badge-success': (booking.confirmed == true)}">{{ (booking.confirmed) ? 'Yes' : 'No' }}</span>
+                            </td>
+                            <td >
+                                {{ booking.employee.fullName }}<br>
+                            </td>
+                            <div *ngIf="booking.room" >
+                            <td *ngFor="let sroom of booking.room">
+                                {{ sroom.roomId }}<br>
+                            </td>
+                        </div>
+                            <td *ngIf="!booking.room">
+                                
+                            </td>
+                            <td>
+                                <a [routerLink]="['edit', booking.resNr]" title="Edit Booking" class="btn">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

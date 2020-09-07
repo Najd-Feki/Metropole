@@ -1,0 +1,123 @@
+<h1 class="page-title">
+    Booking No. {{ id }}
+    <a class="badge badge-warning float-right" [routerLink]="['/bookings/edit', id]">Edit</a>
+</h1>
+<hr>
+<div class="row grid-margin">
+    <div class="col-lg-12" *ngIf="booking$.view !== null">
+         <small>Created by {{ booking$.view.employee.fullName }}</small>
+        <small> on {{ booking$.view.createdAt | date: 'dd/MM/yyyy HH:mm' }}</small><br>
+        <small class="badge capitalized-text" [ngClass]="{'badge-danger': (booking$.view.confirmed == false), 'badge-success': (booking$.view.confirmed == true)}">Confirmed: {{ (booking$.view.confirmed) ? 'Yes' : 'No' }}</small>
+    	<div class="btn-group float-right">
+            <a class="btn btn-success" [routerLink]="['/bookings']">
+                <i class="fa fa-chevron-circle-left"></i> Go Back
+            </a>
+            <a *ngIf="!booking$.view.guest" class="btn btn-info" [routerLink]="['/guests/edit/exist/',booking$.view.fullname]">
+                <i class="fa "></i> Add to clients
+            </a>
+    	</div>
+    </div>
+</div>
+<div class="row grid-margin">
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <div class="card">
+            <div class="card-body" *ngIf="booking$.isLoading == true">
+                <loading-spinner></loading-spinner>
+            </div>
+            <div class="card-body" *ngIf="booking$.view !== null && booking$.isLoading == false">
+                <div class="alert alert-success" role="alert" *ngIf="booking$.saved">
+                    <h4 class="alert-heading">Success!</h4>
+                    Booking registered correctly!
+                </div>
+                <h3>
+                    Guest Information
+                    <span class="float-right badge capitalized-text badge-info ">
+                        Booked at {{ booking$.view.type }}
+                    </span>
+                </h3>
+                <div class="row" *ngIf="booking$.view.guest">
+                    <div class="col">
+                        <b>Name</b>
+                        <p>
+                            <a [routerLink]="['/guests/view', booking$.view.guest.uid]" title="View Guest Details">
+                                {{ booking$.view.guest.fullname }}
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <b>Mobile</b>
+                        <p>
+                            <a href="tel:{{ booking$.view.guest.mobile }}" title="Make a call">
+                                {{ booking$.view.guest.phone }}
+                            </a>
+                        </p>
+                    </div>
+                    <!-- <div class="col">
+                        <b>Email</b>
+                        <p>
+                            <a href="mailto:{{ booking$.view.guest.email }}" title="Send an email">
+                                {{ booking$.view.guest.email }}
+                            </a>
+                        </p>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <b>CheckIn</b>
+                        <p>{{ booking$.view.startDate | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                    <div class="col-sm-4 offset-sm-4">
+                        <b>CheckOut</b>
+                        <p>{{ booking$.view.endDate | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <b>Adults</b>
+                        <p>{{ booking$.view.nombrePR }}</p>
+                    </div>
+                    <div class="col">
+                        <b>Children</b>
+                        <p>{{ booking$.view.children }}</p>
+                    </div>
+                    <div class="col">
+                        <b>Breakfast</b>
+                        <p>{{ (booking$.view.breakfast == 'true') ? 'Yes' : 'No' }}</p>
+                    </div>
+                </div>
+                <hr>
+                <h3>Room Information</h3>
+                <table class="table table-hover table-responsive-sm table-sm">
+                    <thead class="thead-light">
+                        <tr class="">
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let room of booking$.view.room">
+                            <td>
+                                <a [routerLink]="['/rooms/view', room.roomId]" title="View Room Details">
+                                    {{ room.roomId }}
+                                </a>
+                            </td>
+                            <td class="capitalized-text">
+                                {{ room.roomType }}
+                            </td>
+                    
+                            <td>{{ room.rate | currency: room.currency:true:'1.2' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <h3>Comments</h3>
+                <div class="row">
+                    <div class="col">
+                        <p class="comments">{{ booking$.view.comments }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

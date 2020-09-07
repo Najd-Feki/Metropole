@@ -1,0 +1,99 @@
+<h1 class="page-title">
+    Guest No. {{ id }}
+    <a class="badge badge-warning float-right" [routerLink]="['/guests/edit', id]">Edit</a>
+</h1>
+<hr>
+
+      <div class="col-lg-12" *ngIf="guest$.view !== null">   
+        <small>created at {{ guest$.view.created_at | date :'dd/MM/yyyy HH:mm:ss':'+0430' }}</small> 
+    	<div class="btn-group float-right">
+            <a class="btn btn-success float-right" [routerLink]="['/guests']">
+                <i class="fa fa-chevron-circle-left"></i> Go Back
+            </a>
+    	</div>
+    
+<br><br>
+<div class="row grid-margin">
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <div class="card">
+            <div class="card-body" *ngIf="guest$.isLoading == true">
+                <loading-spinner></loading-spinner>
+            </div>
+            <div class="card-body" *ngIf="guest$.view !== null && guest$.isLoading == false">
+                <div class="alert alert-success" role="alert" *ngIf="guest$.saved">
+                    <h4 class="alert-heading">Success!</h4>
+                    Guest registered correctly!
+                </div>
+                <h3>
+                    Guest Information
+                </h3>
+                <div class="row" *ngIf="guest$.view">
+                    <div class="col">
+                        <b>Full Name</b>
+                        <p class="text-uppercase">{{ guest$.view.fullName }}</p>
+                    </div>
+                    <div class="col">
+                        <b>CIN/PASSEPORT</b>
+                        <p class="text-uppercase">
+                            {{guest$.view.cinPass}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="guest$.view">
+                    <div class="col">
+                        <b>Date of birth</b>
+                        <p>
+                            {{ guest$.view.dob }}
+                        </p>
+                    </div>
+                    <div class="col">
+                        <b>Nationality</b>
+                        <p class="text-uppercase">
+                            {{guest$.view.nationality}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="guest$.view">
+                    <div class="col">
+                        <b>Phone</b>
+                        <p>
+                            <a href="tel:{{ guest$.view.phone }}" title="Make a call">
+                                {{ guest$.view.phone }}
+                            </a>
+                        </p>
+                    </div>
+                    <!-- <div class="col">
+                        <b>Mobile</b>
+                        <p>
+                            <a href="tel:{{ guest$.view.mobile }}" title="Make a call">
+                                {{ guest$.view.mobile }}
+                            </a>
+                        </p>
+                    </div> -->
+                </div>
+                <div class="row" *ngIf="guest$.view">
+                    <div class="col">
+                        <b>Check-in</b>
+                        <p>
+                            {{ guest$.view.startDate }}
+                        </p>
+                    </div>
+                    <div class="col">
+                        <b>Check-out</b>
+                        <p>
+                            {{ guest$.view.endDate }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="guest$.view">
+                    <div class="col">
+                        <b>Date of issue</b>
+                        <p>
+                            {{ guest$.view.dateIssue }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<h1 class="page-title">
+    {{ (!id) ? 'New Guest' : 'Edit Guest '+id }} 
+<hr>
+<div class="row grid-margin">
+    <div class="col-lg-12">
+    	<div class="btn-group float-right">
+    		<a class="btn btn-success" [routerLink]="['/guests']">
+                <i class="fa fa-chevron-circle-left"></i> Go Back
+            </a>
+    	</div>
+    </div>
+</div>
+<div class="row grid-margin">
+    <div class="col-lg-12 grid-margin grid-margin-lg-10">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Fill the following fields</h2>
+                <div class="alert alert-danger" role="alert" *ngIf="guest$.error">
+                    <h4 class="alert-heading">Holy guacamole!</h4>
+                    <div *ngFor="let error of guest$.error.errors">
+                        {{ error.message }}
+                    </div>
+                </div>
+                <form class="forms-sample" (ngSubmit)="onSubmit($event)" [ngClass]="{'d-none': guest$.isLoading == true}">
+                    <div class="form-group text-center" *ngIf="guest$.isLoading == true">
+                        <loading-spinner></loading-spinner>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="fullName">Full name *</label>
+                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="form.fullName" class="form-control" id="fullName" aria-describedby="fullName_help" placeholder="First name" autocomplete="off">
+                            <small id="fullName_help" class="form-text text-muted text-success">Full name help</small>
+                        </div>
+                        <div class="form-group col">
+                            <label for="last_name">CIN/PASSEPORT *</label>
+                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="form.cinPass" class="form-control" id="cinPass" aria-describedby="cinPass_help" placeholder="Last name" autocomplete="off">
+                            <small id="cinPass_help" class="form-text text-muted text-success">CIN/PASSPORT help</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="phone">Phone</label>
+                            <input [ngModelOptions]="{standalone: true}" style="width: 532px;" [(ngModel)]="form.phone" class="form-control" id="phone" aria-describedby="phone_help" placeholder="Phone number" autocomplete="off">
+                            <small id="phone_help" class="form-text text-muted text-success">Phone help</small>
+                        </div>
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="dob">Date of birth *</label>
+                            <input [ngModelOptions]="{standalone: true}" type="date" [(ngModel)]="form.dob" class="form-control" id="dob" aria-describedby="dob_help" placeholder="dob" autocomplete="off">
+                            <small id="dob" class="form-text text-muted text-success">Date of birth help</small>
+                        </div>
+                        <div class="form-group col">
+                            <label for="Nationality">Nationality *</label>
+                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="form.nationality" class="form-control text-uppercase" id="Nationality" aria-describedby="Nationality_help" placeholder="Nationality" autocomplete="off">
+                            <small id="Nationality_help" class="form-text text-muted text-success">Nationality help</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="startDate">Check-in</label>
+                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="form.startDate" type="date" step="1" min="0" class="form-control" id="startDate" aria-describedby="startDate_help" placeholder="startDate" autocomplete="off">
+                            <small id="startDate_help" class="form-text text-muted text-success">Check-in help</small>
+                        </div>
+                        <div class="form-group col">
+                            <label for="endDate">Check-out</label>
+                            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="form.endDate" type="date" step="1" min="0" class="form-control" id="endDate" aria-describedby="endDate_help" placeholder="endDate" autocomplete="off">
+                            <small id="endDate_help" class="form-text text-muted text-success">Check-out help</small>
+                        </div>
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="dateIssue">Date of issue</label>
+                            <input [ngModelOptions]="{standalone: true}" style="width: 532px;" [(ngModel)]="form.dateIssue" type="date"class="form-control" id="dateIssue" aria-describedby="dateIssue_help" placeholder="dateIssue" autocomplete="off">
+                            <small id="dateIssue_help" class="form-text text-muted text-success">Date of issue help</small>
+                        </div>
+                        <br>
+                        <div class="form-group col">
+                            <!-- <label for="room">Room</label>
+                            <input [ngModelOptions]="{standalone: true}" style="width: 532px;" [(ngModel)]="form.room.roomId" class="form-control" id="room" aria-describedby="room_help" placeholder="Room Number" autocomplete="off"> -->
+                            <label for="room">Room </label>
+                            <select [ngModelOptions]="{standalone: true}" [(ngModel)]="form.room" class="form-control" id="room" aria-describedby="room_help">
+                                <option *ngFor="let room of rooms"  [ngValue]="room" >{{ room.roomId }}</option>
+                            </select>
+                            {{form.room.roomId | json}} 
+                            <!-- <input *ngIf="form.room==null"[ngModelOptions]="{standalone: true}" style="width: 532px;" ()="form.room.roomId" class="form-control" id="room" aria-describedby="room.roomId_help" placeholder="Room Number" autocomplete="off"> -->
+                        </div>
+                        
+                        
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a [routerLink]="['/guests']" class="btn btn-light">
+                        Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

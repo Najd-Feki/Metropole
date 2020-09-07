@@ -1,0 +1,59 @@
+<h1 class="page-title">
+    Room No. {{ id }}
+    <a class="badge badge-warning float-right" [routerLink]="['/rooms/edit', id]">Edit</a>
+</h1>
+<hr>
+<div class="row grid-margin">
+    <div class="col-lg-12" *ngIf="room$.view !== null">
+        <small>Created on {{ room$.view.created_at | date: 'dd/MM/yyyy HH:mm:ss' }}</small>
+    	<div class="btn-group float-right">
+            <a class="btn btn-success" [routerLink]="['/rooms']">
+                <i class="fa fa-chevron-circle-left"></i> Go Back
+            </a>
+    	</div>
+    </div>
+</div>
+<div class="row grid-margin">
+    <div class="col-lg-12 grid-margin grid-margin-lg-0">
+        <div class="card">
+            <div class="card-body" *ngIf="room$.isLoading == true">
+                <loading-spinner></loading-spinner>
+            </div>
+            <div class="card-body" *ngIf="room$.view !== null && room$.isLoading == false">
+                <div class="alert alert-success" role="alert" *ngIf="room$.saved !== null">
+                    <h4 class="alert-heading">Success!</h4>
+                    Room registered correctly!
+                </div>
+                <h3>
+                    Room Information
+                    <span class="float-right badge capitalized-text" [ngClass]="{'badge-danger': (room$.view.status === 'occupied'), 'badge-success': (room$.view.status == 'free')}">Availability: {{ (room$.view.status)}}</span>
+                </h3>
+                <div class="row" *ngIf="room$.view !== null">
+                    <div class="col">
+                        <b>Name</b>
+                        <p>{{ room$.view.roomId }}</p>
+                    </div>
+                    <div class="col">
+                        <b>Price per night</b>
+                        <p>
+                            {{ room$.view.rate | currency: room$.view.currency:true:'1.2' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="room$.view !== null">
+                    <div class="col">
+                        <b>Type</b>
+                        <p class="capitalized-text">
+                            {{ room$.view.roomType }}
+                        </p>
+                    </div>
+                    
+                </div>
+                <hr>
+                <h3>
+                    <button  class="btn btn-danger" (click)="deleteRoom(room$.view.roomId)">Delete room</button>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
